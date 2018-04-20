@@ -35,6 +35,22 @@ public class Product implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
 
+    public Product(){}
+
+    public Product(String name,
+                   int price,
+                   Brand brand,
+                   ProductSize productSize,
+                   ProductType productType,
+                   ProductCategory productCategory){
+        this.name = name;
+        this.price = price;
+        this.brand = brand;
+        this.productSize = productSize;
+        this.productType = productType;
+        this.productCategory = productCategory;
+    }
+
     public Brand getBrand() {
         return brand;
     }

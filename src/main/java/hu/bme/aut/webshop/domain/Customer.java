@@ -30,6 +30,14 @@ public class Customer implements Serializable {
 
     private Address address;
 
+    public Customer(){}
+
+    public Customer(String name, String password, String email){
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }
