@@ -2,7 +2,7 @@ package hu.bme.aut.webshop.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Spi on 2018. 04. 06..
@@ -29,6 +29,15 @@ public class Customer implements Serializable {
     })
 
     private Address address;
+
+    @Column(name = "active")
+    private int active;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "customer_role",
+               joinColumns = @JoinColumn(name = "Customer_id"),
+               inverseJoinColumns = @JoinColumn(name = "Role_id"))
+    private Set<Role> roles;
 
     public Customer(){}
 
@@ -76,5 +85,21 @@ public class Customer implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

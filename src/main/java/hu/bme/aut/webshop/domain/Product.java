@@ -19,19 +19,25 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private int price;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Brand brand;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductSize productSize;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductType productType;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
 

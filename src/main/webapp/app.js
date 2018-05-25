@@ -1,18 +1,20 @@
 var app = angular.module('myApp', ['ngRoute']);
 
 app.config(
-    function ($routeProvider) {
+    function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/registration', {
                 templateUrl: 'registration/registration.html',
                 controller: 'regController'
             })
-            .when('/', {
+            .when('/login', {
                 templateUrl: 'login/login.html'
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/login'
             });
+        //$locationProvider.hashPrefix('');
+        $locationProvider.html5Mode(true);
     });
 
 /*'use strict';

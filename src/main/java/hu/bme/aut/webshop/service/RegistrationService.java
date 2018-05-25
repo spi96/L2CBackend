@@ -17,7 +17,7 @@ public class RegistrationService  implements IRegistrationService{
 
     @Transactional
     @Override
-    public Long registerCustomer(Customer customer)throws UserExistsException{
+    public void registerCustomer(Customer customer)throws UserExistsException{
 
         Customer existingCustomer = customerRepository.findCustomerByEmail(customer.getEmail());
 
@@ -25,6 +25,6 @@ public class RegistrationService  implements IRegistrationService{
             throw new UserExistsException();
         }
 
-        return customerRepository.save(customer).getId();
+        customerRepository.save(customer);
     }
 }
