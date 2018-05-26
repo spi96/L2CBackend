@@ -9,7 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -20,11 +25,14 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    /*@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;*/
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     @Value("${spring.queries.users-query}")
     private String usersQuery;
@@ -32,16 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value("${spring.queries.roles-query}")
     private String rolesQuery;
 
-    @Bean
-    public InternalResourceViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/pages/");
-        viewResolver.setSuffix(".html");
-        return viewResolver;
-    }
-
-    @Override
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.
@@ -50,35 +49,66 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(rolesQuery)
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
+        http.csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/login").permitAll()
-                    .antMatchers("/registration/**").permitAll()
-                    .antMatchers("/admin/**").permitAll()
-                    .anyRequest().authenticated()
+                .antMatchers("/orders/**", "/addItem/**").hasAnyRole("ADMIN")
+                .antMatchers("/","/home/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/shoppingCart/**", "/account/**").hasRole("USER")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login/login.html")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                .loginPage("/login")
+                .permitAll()
+                .defaultSuccessUrl("/home")
+                .permitAll()
                 .and()
-                .headers()
-                .xssProtection()
-                .block(false)
-                .xssProtectionEnabled(true);
+                .logout()
+                .logoutSuccessUrl("/login")
+                .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+        String userpassword = encoder.encode("user");
+        String adminpassword = encoder.encode("admin");
+
+        auth.inMemoryAuthentication()
+                .passwordEncoder(new BCryptPasswordEncoder())
+                .withUser("user").password(userpassword).roles("USER")
+                .and()
+                .withUser("admin").password(adminpassword).roles("ADMIN");
+    }
+    /*@Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        UserDetails user =
+                User    .withUsername("user")
+                        .password("{noop}password")
+                        .roles("USER")
+                        .build();
+
+        UserDetails admin =
+                User    .withUsername("admin")
+                        .password("{noop}password")
+                        .roles("ADMIN")
+                        .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
+    }*/
+
+    @Override
     public void configure(WebSecurity web) throws Exception {
-        web
+        web     .debug(true)
                 .ignoring()
-                .antMatchers("/webapp/**","/login/**","/app.js","/index.html")
-                /*.antMatchers("/registration/**")*/;
+                .antMatchers("/webjars/**", "/css/main.css");
     }
 }
