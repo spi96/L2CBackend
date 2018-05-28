@@ -2,14 +2,14 @@
 <head th:fragment="header-css">
     <base href="/">
         <link rel="stylesheet" type="text/css"
-              th:href="@{webjars/bootstrap/3.2.0/css/bootstrap.min.css}" />
+              th:href="@{webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
         <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div th:fragment="header">
-    <!-- this is header -->
     <nav class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
@@ -17,10 +17,10 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a th:href="@{/}">Home</a></li>
-                    <li sec:authorize="hasRole('ADMIN')" class="active"><a th:href="@{/addItem}">Add item</a></li>
-                    <li sec:authorize="hasRole('ADMIN')" class="active"><a th:href="@{/orders}">Orders</a></li>
-                    <li sec:authorize="hasRole('USER')" class="active"><a th:href="@{/account}">Account</a></li>
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li sec:authorize="hasRole('ADMIN')" ><a th:href="@{/addItem}">Add item</a></li>
+                    <li sec:authorize="hasRole('ADMIN')" ><a th:href="@{/orders}">Orders</a></li>
+                    <li sec:authorize="hasRole('USER')" ><a th:href="@{/account}">Account</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li sec:authorize="hasRole('USER')"><a th:href="@{/shoppingCart}"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a></li>

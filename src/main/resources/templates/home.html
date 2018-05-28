@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 >
 <head th:replace="fragments/header :: header-css"></head>
 <body>
@@ -7,7 +7,34 @@
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">
+    <div class="row" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3"></div>
+                <div class="form-group">
+                    <table width="50%" class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th sec:authorize="hasRole('USER')">Size</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                    <tr th:each="product : ${productList}">
 
+                        <td th:text="${product.name}">Name</td>
+                        <td th:text="${product.price}">Price</td>
+                        <td sec:authorize="hasRole('USER')">
+                            <select class="form-control" id="productSize" name="productSize" >
+                                <option th:each="productSize: ${sizes}" th:value="${productSize}" th:text="${productSize}"></option>
+                            </select>
+                        </td>
+                        <td><a sec:authorize="hasRole('ADMIN')" th:href="@{/deleteProduct(productId=${product.id})}" class="btn btn-primary">Delete</a></td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
 </div>
 
 <div th:replace="fragments/footer :: footer"/>

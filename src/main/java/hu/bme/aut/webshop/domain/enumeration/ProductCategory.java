@@ -1,16 +1,19 @@
 package hu.bme.aut.webshop.domain.enumeration;
 
 public enum ProductCategory {
-    WOMEN{
-        @Override
-        public String toString(){
-            return "Women";
+    WOMEN("Women"),
+    MEN("Men");
+
+    private String name;
+
+    public String getName(){return name;}
+
+    private ProductCategory(String name){this.name = name;}
+
+    public static ProductCategory fromString(String n){
+        for(ProductCategory type: ProductCategory.values()){
+            if(type.toString().equals(n)) return type;
         }
-    },
-    MEN{
-        @Override
-        public String toString(){
-            return "Men";
-        }
+        return WOMEN;
     }
 }

@@ -1,28 +1,21 @@
 package hu.bme.aut.webshop.domain.enumeration;
 
 public enum Brand {
-    NIKE{
-        @Override
-        public String toString(){
-            return "Nike";
+    NIKE("Nike"),
+    ADIDAS("Adidas"),
+    UNDERARMOUR("Under Armour"),
+    LEVIS("Levi's");
+
+    private String name;
+
+    public String getName(){return name;}
+
+    private Brand(String name){this.name = name;}
+
+    public static Brand fromString(String n){
+        for(Brand type: Brand.values()){
+            if(type.toString().equals(n)) return type;
         }
-    },
-    ADIDAS{
-        @Override
-        public String toString(){
-            return "Adidas";
-        }
-    },
-    UNDERARMOUR{
-        @Override
-        public String toString(){
-            return "Under Armour";
-        }
-    },
-    LEVIS{
-        @Override
-        public String toString(){
-            return "Levi's";
-        }
+        return NIKE;
     }
 }

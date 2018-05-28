@@ -1,34 +1,22 @@
 package hu.bme.aut.webshop.domain.enumeration;
 
 public enum ProductType {
-    EQUIPMENTS{
-        @Override
-        public String toString(){
-            return "Equipments";
+    EQUIPMENTS("Equipments"),
+    HATS("Hats"),
+    GLASSES("Glasses"),
+    SHIRTS("Shirts"),
+    JEANS("Jeans");
+
+    private String name;
+
+    public String getName(){return name;}
+
+    private ProductType(String name){this.name = name;}
+
+    public static ProductType fromString(String n){
+        for(ProductType type: ProductType.values()){
+            if(type.toString().equals(n)) return type;
         }
-    },
-    HATS{
-        @Override
-        public String toString(){
-            return "Hats";
-        }
-    },
-    GLASSES{
-        @Override
-        public String toString(){
-            return "Glasses";
-        }
-    },
-    SHIRTS{
-        @Override
-        public String toString(){
-            return "Shirts";
-        }
-    },
-    JEANS{
-        @Override
-        public String toString(){
-            return "Jeans";
-        }
+        return EQUIPMENTS;
     }
 }

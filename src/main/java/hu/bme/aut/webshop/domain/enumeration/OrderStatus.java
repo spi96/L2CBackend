@@ -27,5 +27,12 @@ public enum OrderStatus {
         public String toString(){
             return "Cancelled";
         }
+    };
+
+    public static OrderStatus fromString(String n){
+        for(OrderStatus type: OrderStatus.values()){
+            if(type.toString().equals(n)) return type;
+        }
+        return PROCESSING;
     }
 }

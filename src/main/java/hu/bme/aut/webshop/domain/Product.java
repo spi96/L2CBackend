@@ -29,7 +29,6 @@ public class Product implements Serializable {
     @Enumerated(EnumType.STRING)
     private Brand brand;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductSize productSize;
 
@@ -55,6 +54,15 @@ public class Product implements Serializable {
         this.productSize = productSize;
         this.productType = productType;
         this.productCategory = productCategory;
+    }
+
+    public Product(Product product){
+        this.name = product.name;
+        this.price = product.price;
+        this.brand = product.brand;
+        this.productSize = product.productSize;
+        this.productType = product.productType;
+        this.productCategory = product.productCategory;
     }
 
     public Brand getBrand() {
@@ -112,4 +120,6 @@ public class Product implements Serializable {
     public void setPrice(int price) {
         this.price = price;
     }
+
+
 }
