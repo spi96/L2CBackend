@@ -1,18 +1,23 @@
 package com.example.spi.localize2socialize.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.jndi.toolkit.url.Uri;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Spi on 2018. 04. 06..
  */
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"personId"}))
 @Entity
 public class Account implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     @Column(nullable = false)
     private String personId;
@@ -31,8 +36,15 @@ public class Account implements Serializable {
     @Column(nullable = false)
     private String encodedPhoto;
 
-    public Account() {
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Post> posts;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Calendar> sharedCalendars;
+
+    public Account() {}
 
     public Account(String personName, String personGivenName, String personFamilyName, String personEmail,
                    String personId, String encodedPhoto) {
@@ -45,11 +57,11 @@ public class Account implements Serializable {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getPersonName() {
@@ -100,6 +112,29 @@ public class Account implements Serializable {
         this.encodedPhoto = encodedImage;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<Calendar> getSharedCalendars() {
+        return sharedCalendars;
+    }
+
+    public void setSharedCalendars(List<Calendar> sharedCalendars) {
+        this.sharedCalendars = sharedCalendars;
+    }
+
+    public void addCalendar(Calendar calendar){
+        if(sharedCalendars == null){
+            sharedCalendars = new ArrayList<>();
+        }
+        sharedCalendars.add(calendar);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj != null && obj instanceof Account) {
@@ -112,5 +147,10 @@ public class Account implements Serializable {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personGivenName, personFamilyName, personEmail, personName, encodedPhoto);
     }
 }

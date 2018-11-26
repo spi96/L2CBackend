@@ -5,9 +5,9 @@ import java.io.Serializable;
 
 @Entity
 public class Relationship implements Serializable {
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "sender_person", nullable = false)
@@ -37,11 +37,11 @@ public class Relationship implements Serializable {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public Account getSender() {
