@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,7 +26,7 @@ public class AccountService implements IAccountService {
     @Override
     @Transactional(isolation = Isolation.DEFAULT)
     public Account saveOrUpdateAccount(Account account) {
-        Account entity = null;
+        Account entity;
         List<Account> result = accountRepository.findByPersonId(account.getPersonId());
 
         if (result.isEmpty()) {
@@ -48,9 +49,14 @@ public class AccountService implements IAccountService {
     @Override
     @Transactional(isolation = Isolation.DEFAULT)
     public List<Account> findAccounts(String personId, String filter) {
-        List<Account> result = accountRepository.findAccountsByNamePattern(filter, personId);
-        List<Account> sentRequestsByPerson = relationshipRepository.findReceiverAccounts(personId, null);
-        List<Account> receivedRequestsByPerson = relationshipRepository.findSenderAccounts(personId, null);
+        List<Account> personResult = accountRepository.findByPersonId(personId);
+        if(personResult.isEmpty())
+            return new ArrayList<>();
+        Account person = personResult.get(0);
+
+        List<Account> result = accountRepository.findAccountsByNamePattern(filter, person.getId());
+        List<Account> sentRequestsByPerson = relationshipRepository.findReceiverAccounts(person);
+        List<Account> receivedRequestsByPerson = relationshipRepository.findSenderAccounts(person);
         result.removeIf(a -> sentRequestsByPerson.contains(a) || receivedRequestsByPerson.contains(a));
 
         return result;

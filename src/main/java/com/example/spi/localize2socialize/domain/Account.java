@@ -36,11 +36,11 @@ public class Account implements Serializable {
     @Column(nullable = false)
     private String encodedPhoto;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JsonManagedReference
     private List<Post> posts;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner", cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JsonManagedReference
     private List<Calendar> sharedCalendars;
 
@@ -117,7 +117,10 @@ public class Account implements Serializable {
     }
 
     public void setPosts(List<Post> posts) {
-        this.posts = posts;
+        this.posts.clear();
+        if(posts != null){
+            this.posts.addAll(posts);
+        }
     }
 
     public List<Calendar> getSharedCalendars() {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class RelationshipController {
 
     RelationshipService relationshipService;
+
 
     public RelationshipController(RelationshipService relationshipService){
         this.relationshipService = relationshipService;
@@ -51,6 +53,18 @@ public class RelationshipController {
         Map<String, Account> result = new HashMap<>();
         String key = request.getAccepted() ? "senderPersonAccepted" : "senderPersonDenied";
         result.put(key, sender);
+        return result;
+    }
+
+    @RequestMapping(value = "/relationship/delete", method = RequestMethod.POST)
+    public Map<String, List<Account>> deleteRelationships(@RequestBody DeleteRelationshipsRequest request){
+        boolean succssful = relationshipService.deleteRelationships(request.getFriendsToDelete(), request.getCaller());
+
+        Map<String, List<Account>> result = new HashMap<>();
+        if(succssful)
+            result.put("relationshipDelete", request.getFriendsToDelete());
+        else
+            result.put("relationshipDelete", new ArrayList<>());
         return result;
     }
 }

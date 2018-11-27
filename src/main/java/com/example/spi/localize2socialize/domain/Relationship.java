@@ -24,16 +24,16 @@ public class Relationship implements Serializable {
     private String receiverPersonId;
 
     @Column(nullable = false)
-    private boolean isPending;
+    private boolean pending;
 
     public Relationship(){}
 
-    public Relationship(Account sender, Account receiver, boolean isPending) {
+    public Relationship(Account sender, Account receiver, boolean pending) {
         this.sender = sender;
         this.receiver = receiver;
         this.senderPersonId = sender.getPersonId();
         this.receiverPersonId = receiver.getPersonId();
-        this.isPending = isPending;
+        this.pending = pending;
     }
 
     public Long getId() {
@@ -61,11 +61,11 @@ public class Relationship implements Serializable {
     }
 
     public boolean isPending() {
-        return isPending;
+        return pending;
     }
 
     public void setPending(boolean pending) {
-        isPending = pending;
+        this.pending = pending;
     }
 
     public String getSenderPersonId() {

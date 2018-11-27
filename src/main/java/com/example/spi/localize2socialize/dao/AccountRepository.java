@@ -13,6 +13,6 @@ public interface AccountRepository extends JpaRepository<Account,Long> {
 
     List<Account> findAllByPersonIdIn(List<String> personIdList);
 
-    @Query("SELECT a FROM Account a WHERE a.personId <> ?2 AND a.personName LIKE %?1% ORDER BY a.personName")
-    List<Account> findAccountsByNamePattern(String namePattern, String callerPersonId);
+    @Query("SELECT a FROM Account a WHERE a.id <> ?2 AND a.personName LIKE %?1% ORDER BY a.personName")
+    List<Account> findAccountsByNamePattern(String namePattern, Long id);
 }

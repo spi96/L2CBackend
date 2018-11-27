@@ -9,4 +9,5 @@ public interface IRelationshipService {
     List<Account> getPendingRelationships(String personId);
     boolean sendFriendRequest(String senderPersonId, String receiverPersonId);
     Account handleFriendRequest(String receiverPersonId, String senderPersonId, boolean isAccepted);
+    boolean deleteRelationships(List<Account> toDelete, Account caller);
 }

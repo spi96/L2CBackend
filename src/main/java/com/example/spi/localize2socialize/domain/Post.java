@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.util.Date;
 
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"ownerId", "startDate"}))
 @Entity
 @DiscriminatorValue("1")
 public class Post extends SharedItem {
