@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"ownerId", "calId","displayName"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"ownerId", "calId"}))
 @Entity
 public class Calendar {
     @Id
