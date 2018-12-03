@@ -1,19 +1,24 @@
 package com.example.spi.localize2socialize.controller;
 
 import com.example.spi.localize2socialize.domain.Account;
-import com.example.spi.localize2socialize.dto.*;
-import com.example.spi.localize2socialize.service.AccountService;
+import com.example.spi.localize2socialize.dto.SearchRequest;
+import com.example.spi.localize2socialize.service.IAccountService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class AccountController {
 
-    AccountService accountService;
+    IAccountService accountService;
 
-    public AccountController(AccountService accountService){
+    public AccountController(IAccountService accountService){
         this.accountService = accountService;
     }
 

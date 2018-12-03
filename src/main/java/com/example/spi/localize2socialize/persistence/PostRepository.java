@@ -1,4 +1,4 @@
-package com.example.spi.localize2socialize.dao;
+package com.example.spi.localize2socialize.persistence;
 
 import com.example.spi.localize2socialize.domain.Account;
 import com.example.spi.localize2socialize.domain.Post;

@@ -1,6 +1,6 @@
 package com.example.spi.localize2socialize.service;
 
-import com.example.spi.localize2socialize.dao.CalendarRepository;
+import com.example.spi.localize2socialize.persistence.CalendarRepository;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;

@@ -1,9 +1,8 @@
 package com.example.spi.localize2socialize.service;
 
-import com.example.spi.localize2socialize.dao.AccountRepository;
-import com.example.spi.localize2socialize.dao.RelationshipRepository;
 import com.example.spi.localize2socialize.domain.Account;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.spi.localize2socialize.persistence.AccountRepository;
+import com.example.spi.localize2socialize.persistence.RelationshipRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;

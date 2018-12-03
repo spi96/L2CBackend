@@ -2,8 +2,7 @@ package com.example.spi.localize2socialize.controller;
 
 import com.example.spi.localize2socialize.domain.Account;
 import com.example.spi.localize2socialize.dto.*;
-import com.example.spi.localize2socialize.service.AccountService;
-import com.example.spi.localize2socialize.service.RelationshipService;
+import com.example.spi.localize2socialize.service.IRelationshipService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +16,10 @@ import java.util.Map;
 @RestController
 public class RelationshipController {
 
-    RelationshipService relationshipService;
+    IRelationshipService relationshipService;
 
 
-    public RelationshipController(RelationshipService relationshipService){
+    public RelationshipController(IRelationshipService relationshipService){
         this.relationshipService = relationshipService;
     }
 

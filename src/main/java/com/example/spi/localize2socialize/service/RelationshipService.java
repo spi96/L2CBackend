@@ -1,19 +1,15 @@
 package com.example.spi.localize2socialize.service;
 
-import com.example.spi.localize2socialize.dao.AccountRepository;
-import com.example.spi.localize2socialize.dao.CalendarRepository;
-import com.example.spi.localize2socialize.dao.RelationshipRepository;
 import com.example.spi.localize2socialize.domain.Account;
 import com.example.spi.localize2socialize.domain.Calendar;
 import com.example.spi.localize2socialize.domain.Relationship;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.spi.localize2socialize.persistence.AccountRepository;
+import com.example.spi.localize2socialize.persistence.CalendarRepository;
+import com.example.spi.localize2socialize.persistence.RelationshipRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;

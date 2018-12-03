@@ -1,30 +1,28 @@
 package com.example.spi.localize2socialize.service;
 
-import com.example.spi.localize2socialize.dao.AccountRepository;
-import com.example.spi.localize2socialize.dao.CalendarRepository;
-import com.example.spi.localize2socialize.dao.PostRepository;
-import com.example.spi.localize2socialize.dao.RelationshipRepository;
 import com.example.spi.localize2socialize.domain.Account;
 import com.example.spi.localize2socialize.domain.Calendar;
 import com.example.spi.localize2socialize.domain.Post;
+import com.example.spi.localize2socialize.persistence.AccountRepository;
+import com.example.spi.localize2socialize.persistence.CalendarRepository;
+import com.example.spi.localize2socialize.persistence.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SharingService  implements  ISharingService{
 
     AccountRepository accountRepository;
     CalendarRepository calendarRepository;
-    RelationshipService relationshipService;
+    IRelationshipService relationshipService;
     PostRepository postRepository;
 
 
     public SharingService (AccountRepository accountRepository,
-                           RelationshipService relationshipService,
+                           IRelationshipService relationshipService,
                            CalendarRepository calendarRepository,
                            PostRepository postRepository){
         this.accountRepository = accountRepository;

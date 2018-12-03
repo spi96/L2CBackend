@@ -1,7 +1,7 @@
 package com.example.spi.localize2socialize.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.jndi.toolkit.url.Uri;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +12,7 @@ import java.util.Objects;
 /**
  * Created by Spi on 2018. 04. 06..
  */
+@JsonIgnoreProperties(value = { "posts", "sharedCalendars" })
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"personId"}))
 @Entity
 public class Account implements Serializable {

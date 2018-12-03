@@ -3,15 +3,13 @@ package com.example.spi.localize2socialize.controller;
 import com.example.spi.localize2socialize.domain.Account;
 import com.example.spi.localize2socialize.domain.Calendar;
 import com.example.spi.localize2socialize.domain.Post;
-import com.example.spi.localize2socialize.dto.GetSharingsForAccountResponse;
 import com.example.spi.localize2socialize.dto.CalendarDTO;
+import com.example.spi.localize2socialize.dto.GetSharingsForAccountResponse;
 import com.example.spi.localize2socialize.dto.PostDTO;
-import com.example.spi.localize2socialize.service.AccountService;
-import com.example.spi.localize2socialize.service.SharingService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.spi.localize2socialize.service.IAccountService;
+import com.example.spi.localize2socialize.service.ISharingService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,11 +23,11 @@ import java.util.Map;
 @RestController
 public class SharingController {
 
-    SharingService sharingService;
-    AccountService accountService;
+    ISharingService sharingService;
+    IAccountService accountService;
 
-    public SharingController(SharingService sharingService,
-                             AccountService accountService){
+    public SharingController(ISharingService sharingService,
+                             IAccountService accountService){
         this.sharingService = sharingService;
         this.accountService = accountService;
     }
