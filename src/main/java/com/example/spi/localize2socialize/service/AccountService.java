@@ -53,7 +53,8 @@ public class AccountService implements IAccountService {
             return new ArrayList<>();
         Account person = personResult.get(0);
 
-        List<Account> result = accountRepository.findAccountsByNamePattern(filter, person.getId());
+        List<Account> result =
+                accountRepository.findAllByIdNotAndPersonNameContainingOrderByPersonFamilyName(person.getId(), filter);
         List<Account> sentRequestsByPerson = relationshipRepository.findReceiverAccounts(person);
         List<Account> receivedRequestsByPerson = relationshipRepository.findSenderAccounts(person);
         result.removeIf(a -> sentRequestsByPerson.contains(a) || receivedRequestsByPerson.contains(a));
