@@ -60,6 +60,8 @@ public class SharingController {
         List<CalendarDTO> calendarDTO = modelMapper.map(calendars, calendarListType);
         List<PostDTO> postDTO = modelMapper.map(posts, postListType);
 
+        calendarDTO.forEach(calendar -> calendar.setParticipants(null));
+
         response.setCalendars(calendarDTO);
         response.setPosts(postDTO);
         return response;

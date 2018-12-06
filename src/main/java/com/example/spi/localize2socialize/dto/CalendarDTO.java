@@ -1,13 +1,11 @@
 package com.example.spi.localize2socialize.dto;
 
 import com.example.spi.localize2socialize.domain.Account;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@JsonIgnoreProperties(value = {"participants"})
 public class CalendarDTO {
     private Long id;
     private Long calId;
